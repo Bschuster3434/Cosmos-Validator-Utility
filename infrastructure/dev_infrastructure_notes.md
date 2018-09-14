@@ -13,8 +13,6 @@ Instance Type: t2.micro
 HHD: 30GB
 Security Group: Cosmos Full Node Setup
 
-
-
 ## IAM Roles
 
 ### dev_cvu_role_lambdaUtilityRole
@@ -24,6 +22,14 @@ Policies:
 -- LambdaFullAccess
 -- S3FullAccess
 -- DynamoDBFullAccess
+
+### dev_cvu_role_fullCosmosNodeRole
+
+Name: dev_cvu_role_fullCosmosNodeRole
+Policies:
+-- S3FullAccess
+-- DynamoDBFullAccess
+-- LambdaFullAccess
 
 ## S3 Bucket
 

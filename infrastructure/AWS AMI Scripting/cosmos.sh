@@ -2,19 +2,41 @@
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get install -y make
+sudo apt-get install build-essential software-properties-common -y
+sudo apt-get install python -y
+sudo apt-get install python-pip -y
+pip install awscli
 
-#Install GoLang
-curl -O https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz
-tar -xvf go1.9.1.linux-amd64.tar.gz
-mv go /usr/local
+#Install Golang
+curl -O https://storage.googleapis.com/golang/go1.10.linux-amd64.tar.gz
+tar -xvf go1.10.linux-amd64.tar.gz
+sudo mv go /usr/local
+
+#Create go directory directory, set GOPATH and put it on PATH
 echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
 
-#Create goApps directory, set GOPATH and put it on PATH
 mkdir goApps
-echo "export GOPATH=~/goApps" >> ~/.profile
+echo "export GOPATH=$HOME/goApps" >> ~/.profile
 echo "export PATH=\$PATH:\$GOPATH/bin" >> ~/.profile
+
 source ~/.profile
 
+#Retrieve Cosmos Project
 REPO=github.com/cosmos/cosmos-sdk
 go get $REPO
 cd $GOPATH/src/$REPO
+git checkout master
+
+#Build Cosmos
+make get_tools
+make get_dev_tools
+make get_vendor_deps
+make install
+
+#Starting Cosmos Network
+gaiad init --name cosmos_network_node
+moniker = "cosmos_network_node"
+mkdir -p $HOME/.gaiad/config
+curl https://raw.githubusercontent.com/cosmos/testnets/master/latest/genesis.json > $HOME/.gaiad/config/genesis.json
+aws s3 cp s3://cosmos-validator-data/node_config_files/gaiad_config.toml /home/ubuntu/.gaiad/config/config.toml
+gaiad start
