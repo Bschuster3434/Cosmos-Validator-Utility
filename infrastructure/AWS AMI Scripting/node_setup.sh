@@ -35,8 +35,16 @@ make install
 
 #Starting Cosmos Network
 gaiad init --name cosmos_network_node
+echo "uniquepassword"
 moniker = "cosmos_network_node"
 mkdir -p $HOME/.gaiad/config
 curl https://raw.githubusercontent.com/cosmos/testnets/master/latest/genesis.json > $HOME/.gaiad/config/genesis.json
 aws s3 cp s3://cosmos-validator-data/node_config_files/gaiad_config.toml /home/ubuntu/.gaiad/config/config.toml
-gaiad start
+crontab -e
+echo "2"
+
+#Setup Crontab to run Restart Processes
+crontab -l | { cat; echo "@reboot /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
+crontab -l | { cat; echo "* * * * * /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
+
+#Python Script Basics
