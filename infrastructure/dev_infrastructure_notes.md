@@ -52,6 +52,10 @@ R/W: Autoscale 2/2
 Name: dev_cvu_lambda_processValidatorsIntoDynamoDB
 Runtime: Python 2.7
 Handler: index.handler
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processValidatorsIntoDynamoDB)
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 20 secs
+
+Cloudwatch Trigger Event: Cloudwatch Timer
+Cloudwatch Expression: Run Once Every 5 Minutes
