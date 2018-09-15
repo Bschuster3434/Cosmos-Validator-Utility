@@ -47,4 +47,7 @@ echo "2"
 crontab -l | { cat; echo "@reboot /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
 crontab -l | { cat; echo "* * * * * /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
 
-#Python Script Basics
+#Get Git Repository
+cd $HOME
+git clone https://github.com/Bschuster3434/Cosmos-Validator-Utility.git
+crontab -l | { cat; echo "* * * * * /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
