@@ -50,4 +50,6 @@ crontab -l | { cat; echo "* * * * * /home/ubuntu/goApps/bin/gaiad start"; } | cr
 #Get Git Repository
 cd $HOME
 git clone https://github.com/Bschuster3434/Cosmos-Validator-Utility.git
-crontab -l | { cat; echo "* * * * * /home/ubuntu/goApps/bin/gaiad start"; } | crontab -
+cd Cosmos-Validator-Utility
+git checkout -b dev origin/dev
+crontab -l | { cat; echo "*/5 * * * * /home/ubunutu/Cosmos-Validator-Utility/backend_code/getValidators.sh"; } | crontab -
