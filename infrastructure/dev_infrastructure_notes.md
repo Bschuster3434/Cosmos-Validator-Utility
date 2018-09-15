@@ -47,9 +47,11 @@ R/W: Autoscale 2/2
 
 ## Lambda Shells
 
-### dev_cvu_lambda_getFullNodesList
-Name: dev_cvu_getFullNodesList
+### dev_cvu_lambda_processValidatorsIntoDynamoDB
+
+Name: dev_cvu_lambda_processValidatorsIntoDynamoDB
 Runtime: Python 2.7
+Handler: index.handler
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 20 secs
