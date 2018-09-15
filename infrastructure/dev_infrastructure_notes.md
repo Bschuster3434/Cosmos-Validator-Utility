@@ -9,7 +9,7 @@ All project objects will be tagged with {'project': 'cosmos-validator-utility'}
 ### Cosmos Full Node Instance
 
 AMI: Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-04169656fea786776
-Instance Type: t2.small (t2.medium for sync)
+Instance Type: c5.large
 HHD: 30GB
 Security Group: Cosmos Full Node Setup
 
@@ -18,6 +18,7 @@ Security Group: Cosmos Full Node Setup
 ### dev_cvu_role_lambdaUtilityRole
 
 Name: dev_cvu_role_lambdaUtilityRole
+Service: Lambda
 Policies:
 -- LambdaFullAccess
 -- S3FullAccess
@@ -26,10 +27,19 @@ Policies:
 ### dev_cvu_role_fullCosmosNodeRole
 
 Name: dev_cvu_role_fullCosmosNodeRole
+Service: EC2
 Policies:
 -- S3FullAccess
 -- DynamoDBFullAccess
 -- LambdaFullAccess
+
+### dev_cvu_role_APIGatewayExecute
+
+Name: dev_cvu_role_APIGatewayExecute
+Service: API Gateway
+Policies:
+-- DynamoDBRead
+-- LambdaExecute
 
 ## S3 Bucket
 
@@ -44,6 +54,8 @@ Key: validatorKey
 R/W: Autoscale 2/2
 
 ## API Gateway Structure
+
+Name: dev_cvu_api_applicationAPI
 
 ## Lambda Shells
 
