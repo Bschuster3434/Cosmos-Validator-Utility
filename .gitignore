@@ -1,6 +1,2 @@
 keys
-backend_code/node_server_scripts/node_server_scripts/Include
-backend_code/node_server_scripts/node_server_scripts/Lib
-backend_code/node_server_scripts/node_server_scripts/Scripts
-backend_code/node_server_scripts/node_server_scripts/pip-selfcheck.json
-backend_code/node_server_scripts/node_server_scripts/tcl
+backend_code/python_server_scripts/node_server_scripts/
