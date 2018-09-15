@@ -9,7 +9,7 @@ All project objects will be tagged with {'project': 'cosmos-validator-utility'}
 ### Cosmos Full Node Instance
 
 AMI: Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-04169656fea786776
-Instance Type: t2.micro
+Instance Type: t2.small (t2.medium for sync)
 HHD: 30GB
 Security Group: Cosmos Full Node Setup
 
@@ -36,6 +36,12 @@ Policies:
 - cosmos-validator-data
 
 ## DynamoDB Tables
+
+### dev_cvu_dynamodb_fullValidatorList
+
+Name: dev_cvu_dynamodb_fullValidatorList
+Key: validatorKey
+R/W: Autoscale 2/2
 
 ## API Gateway Structure
 
