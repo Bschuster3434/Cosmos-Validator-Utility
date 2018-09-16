@@ -5,7 +5,11 @@ sudo apt-get install -y make
 sudo apt-get install build-essential software-properties-common -y
 sudo apt-get install python -y
 sudo apt-get install python-pip -y
+
+#Install Python Dependencies
 pip install awscli
+pip install requests
+pip install boto3
 
 #Install Golang
 curl -O https://storage.googleapis.com/golang/go1.10.linux-amd64.tar.gz
@@ -53,6 +57,3 @@ git clone https://github.com/Bschuster3434/Cosmos-Validator-Utility.git
 cd Cosmos-Validator-Utility
 git checkout -b dev origin/dev
 crontab -l | { cat; echo "*/5 * * * * bash /home/ubuntu/Cosmos-Validator-Utility/backend_code/bash_server_scripts/getValidators.sh"; } | crontab -
-
-#Python Script Needs
-pip install boto3
