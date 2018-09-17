@@ -23,7 +23,7 @@ def main():
         response = s3_client.list_objects(Bucket = s3_bucket, Prefix = s3_key_path)
         objects = response['Contents']
 
-        for next_obj in object:
+        for next_obj in objects:
             if i['Key'] == s3_key_path:
                 continue
             else:
