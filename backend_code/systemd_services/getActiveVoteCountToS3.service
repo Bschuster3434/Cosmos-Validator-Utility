@@ -7,6 +7,7 @@ User=ubuntu
 Type=simple
 ExecStart=/usr/bin/python /home/ubuntu/Cosmos-Validator-Utility/backend_code/python_server_scripts/getActiveVoteCountToS3/index.py
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
