@@ -60,5 +60,5 @@ git checkout -b dev origin/dev
 crontab -l | { cat; echo "*/5 * * * * bash /home/ubuntu/Cosmos-Validator-Utility/backend_code/bash_server_scripts/getValidators.sh"; } | crontab -
 
 #Setup Python Services Here
-sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/upstart_services/getActiveVoteCountToS3.service /etc/systemd/system/getActiveVoteCountToS3.service
-service getActiveVoteCountToS3 start
+sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/systemd_services/getActiveVoteCountToS3.service /etc/systemd/system/getActiveVoteCountToS3.service
+sudo systemctl start getActiveVoteCountToS3.service
