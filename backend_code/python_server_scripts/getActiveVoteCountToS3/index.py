@@ -28,7 +28,7 @@ def main():
         #If None, sleep for time_between_no_props
         if current_votes[0] == "No matching proposals found":
             #Wait 30 Seconds
-            print "Nothing to load"
+            print "Nothing to load, Waiting..."
             time.sleep(time_between_no_props)
             continue
 
