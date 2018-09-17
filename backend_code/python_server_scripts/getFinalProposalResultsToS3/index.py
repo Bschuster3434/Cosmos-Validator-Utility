@@ -49,7 +49,7 @@ def main():
                 #Else, upload the data directly to s3
                 key_full_path = s3_key_path + '/' + proposal_id + '.json'
                 obj = s3_resource.Object(s3_bucket, key_full_path)
-                obj.put(Body=current_proposal_votes)
+                obj.put(Body=proposal_result)
         print "Now Sleeping"
         time.sleep(time_between_check)
 
