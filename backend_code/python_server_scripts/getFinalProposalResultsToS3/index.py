@@ -24,10 +24,10 @@ def main():
         objects = response['Contents']
 
         for next_obj in objects:
-            if i['Key'] == s3_key_path:
+            if next_obj['Key'] == s3_key_path:
                 continue
             else:
-                tracked_proposal_results.append(i['Key'].split('/')[-1].split('.')[0])
+                tracked_proposal_results.append(next_obj['Key'].split('/')[-1].split('.')[0])
 
         #Must Search Passed and Rejected to get the whole set
         rejected_proposals = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'Passed']).strip().split('\n')
