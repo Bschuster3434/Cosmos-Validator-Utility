@@ -3,6 +3,7 @@ import shlex, subprocess
 import time
 import json
 import datetime
+import pdb
 
 time_between_check = 30
 
@@ -36,6 +37,8 @@ def main():
 
         print "Retrieved All proposals"
 
+        pdb.set_trace()
+        
         for next_proposal in all_completed_proposals:
             #Getting Proposal ID
             proposal_id = next_proposal[0].split('-')[0].strip()
