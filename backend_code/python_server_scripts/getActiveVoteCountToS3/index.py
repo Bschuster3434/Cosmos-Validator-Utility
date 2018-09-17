@@ -49,7 +49,7 @@ def main():
             obj = s3_resource.Object(s3_bucket, key_full_path)
             obj.put(Body=current_proposal_votes)
 
-            print datatime.now().isoformat()
+            print datetime.now().isoformat()
             print "Uploaded: " + key_full_path
 
         #Wait 2 seconds and go again
