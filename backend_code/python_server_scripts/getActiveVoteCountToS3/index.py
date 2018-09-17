@@ -19,7 +19,7 @@ def main():
     #Find all the VotingPeriod Votes
 
     #In a While loop because this should always be running
-    while:
+    while True:
         start = time.time()
         #Query Current Votes
         current_votes = subprocess.check_output([gaiacli_path, 'gov', \
