@@ -44,6 +44,16 @@ Policies:
 ## S3 Bucket
 
 - cosmos-validator-data
+  /data
+    /gov
+      /active_votes
+        Active Voting Activity on the Network
+      /finished_votes
+        Archive of Finished Voting Activity on the Network
+      /finished_results
+        Aggregate Results of Voting Activity on the Network
+    /validators
+      List of Validators on the Network, updated every five minutes
 
 ## DynamoDB Tables
 
