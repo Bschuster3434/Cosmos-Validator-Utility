@@ -29,7 +29,7 @@ def main():
         if current_votes[0] == "No matching proposals found":
             #Wait 30 Seconds
             print "Nothing to load"
-            time.sleep(time_between_no_pros)
+            time.sleep(time_between_no_props)
             continue
 
         #For all outstanding proposals, query them and send to s3
