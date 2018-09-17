@@ -22,7 +22,7 @@ def main():
     while True:
         start = time.time()
         #Query Current Votes
-        current_votes = subprocess.check_output(['gaiacli', 'gov', 'query-proposals', '--status', 'VotingPeriod']).split('\n')
+        current_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'VotingPeriod']).split('\n')
 
         #If None, sleep for time_between_no_props
         if current_votes[0] == "No matching proposals found":
