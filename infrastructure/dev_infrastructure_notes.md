@@ -94,5 +94,10 @@ Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 60 secs
 
+Cloudwatch Event Trigger: S3
+Cloudwatch Bucket: cosmos-validator-data
+Cloudwatch Key Prefix: data/gov/finished_results
+Cloudwatch Key Suffix: .json
+
 Cloudwatch Trigger Event: Cloudwatch Timer
 Cloudwatch Expression: Run Once Every 5 Minutes

@@ -16,7 +16,7 @@ table_name = "dev_cvu_dynamodb_ProposalResultsAggregateFinal"
 def insertDynamoDBResult(results):
     #Create DynamoDB Object
     table_insert = {}
-    table_insert['proposalId'] = results['value']['proposal_id']
+    table_insert['proposalId'] = int(results['value']['proposal_id'])
     table_insert['votingStartBlock'] = int(results['value']['voting_start_block'])
     table_insert['proposalStatus'] = results['value']['proposal_status']
     table_insert['title'] = results['value']['title']
