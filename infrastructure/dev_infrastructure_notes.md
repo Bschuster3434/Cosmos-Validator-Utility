@@ -61,7 +61,12 @@ Policies:
 
 Name: dev_cvu_dynamodb_fullValidatorList
 Key: validatorKey
-R/W: Autoscale 2/2
+R/W: Autoscale 2/2 (5/5)
+
+Name: dev_cvu_dynamodb_ProposalResultsAggregateFinal
+Key: proposalId
+Sort: VotingStartBlock
+R/W: Autoscale 2/2 (25/10)
 
 ## API Gateway Structure
 
@@ -74,10 +79,20 @@ Name: dev_cvu_api_applicationAPI
 Name: dev_cvu_lambda_processValidatorsIntoDynamoDB
 Runtime: Python 2.7
 Handler: index.handler
-(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processValidatorsIntoDynamoDB)
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processValidatorsIntoDynamoDB.py)
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 20 secs
+
+## dev_cvu_lambda_processProposalResultsIntoDynamoDB
+
+Name: dev_cvu_lambda_processProposalResultsIntoDynamoDB
+Runtime: Python 2.7
+Handler: index.handler
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalResultsIntoDynamoDB.ppy)
+Role: dev_cvu_role_lambdaUtilityRole
+Memory: 128 MB
+Timeout: 60 secs
 
 Cloudwatch Trigger Event: Cloudwatch Timer
 Cloudwatch Expression: Run Once Every 5 Minutes
