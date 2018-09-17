@@ -5,6 +5,7 @@ sudo apt-get install -y make
 sudo apt-get install build-essential software-properties-common -y
 sudo apt-get install python -y
 sudo apt-get install python-pip -y
+sudo apt-get install upstart -y
 
 #Install Python Dependencies
 pip install awscli
@@ -57,3 +58,7 @@ git clone https://github.com/Bschuster3434/Cosmos-Validator-Utility.git
 cd Cosmos-Validator-Utility
 git checkout -b dev origin/dev
 crontab -l | { cat; echo "*/5 * * * * bash /home/ubuntu/Cosmos-Validator-Utility/backend_code/bash_server_scripts/getValidators.sh"; } | crontab -
+
+#Setup Python Services Here
+sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/upstart_services/getActiveVoteCountToS3.conf /etc/init/getActiveVoteCountToS3.conf
+service getActiveVoteCountToS3 start

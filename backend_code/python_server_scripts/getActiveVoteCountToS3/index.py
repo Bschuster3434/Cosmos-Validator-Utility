@@ -40,8 +40,10 @@ def main():
 
             #If voting period has lapsed, continue
             if current_proposal_votes.split('.') == 'Proposal not in voting period.':
+                print "Proposal Time Lapsed."
                 continue
 
+            print "Uploading Proposal Id: " + str(proposal_id)
             #Else, upload the data directly to s3
             key_full_path = s3_key_path + '/' + proposal_id + '.json'
             obj = s3_resource.Object(s3_bucket, key_full_path)
