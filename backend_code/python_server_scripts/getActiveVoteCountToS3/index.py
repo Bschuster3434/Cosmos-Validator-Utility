@@ -34,8 +34,7 @@ def main():
         #For all outstanding proposals, query them and send to s3
         for next_proposal in current_votes:
             proposal_id = current_votes[0].split('-')[0].strip()
-            current_proposal_votes = subprocess.check_output([gaiacli_path, 'gov',\
-                'query-votes', '--proposal-id', proposal_id])
+            current_proposal_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-votes', '--proposal-id', proposal_id])
 
             #If voting period has lapsed, continue
             if current_proposal_votes.split('.') == 'Proposal not in voting period.':
