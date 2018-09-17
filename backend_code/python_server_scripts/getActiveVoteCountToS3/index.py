@@ -52,3 +52,5 @@ def main():
 
         #Wait 2 seconds and go again
         time.sleep(2)
+
+main()
