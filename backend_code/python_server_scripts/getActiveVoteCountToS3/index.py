@@ -1,5 +1,5 @@
 import boto3
-import subprocess
+import shlex, subprocess
 import time
 import json
 import datetime

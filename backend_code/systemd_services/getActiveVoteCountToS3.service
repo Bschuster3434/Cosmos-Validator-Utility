@@ -2,7 +2,6 @@
 Description=Get the Actively Voted on Proposals and Send to S3
 
 [Service]
-WorkingDirectory=/home/ubuntu/
 User=ubuntu
 Type=simple
 ExecStart=/usr/bin/python /home/ubuntu/Cosmos-Validator-Utility/backend_code/python_server_scripts/getActiveVoteCountToS3/index.py
