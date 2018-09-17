@@ -12,8 +12,8 @@ s3_bucket = 'cosmos-validator-data'
 s3_key_path = 'data/gov/active_votes'
 
 #For Linux: Full path to executable in system
-gaiacli_path = 'gaiacli'
-aws_path = 'aws'
+gaiacli_path = '/home/ubuntu/goApps/bin/gaiacli'
+aws_path = '/home/ubuntu/.local/bin/aws'
 
 def main():
     #Find all the VotingPeriod Votes
