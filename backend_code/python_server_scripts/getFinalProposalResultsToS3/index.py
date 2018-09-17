@@ -20,7 +20,7 @@ def main():
     while True:
         # Getting current Proposal Ids in S3 Bucket
         tracked_proposal_results = []
-        response = client.list_objects(Bucket = s3_bucket, Prefix = s3_key_path)
+        response = s3_client.list_objects(Bucket = s3_bucket, Prefix = s3_key_path)
         objects = response['Contents']
 
         for next_obj in object:
