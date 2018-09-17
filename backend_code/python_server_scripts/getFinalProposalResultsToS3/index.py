@@ -38,7 +38,7 @@ def main():
 
         for next_proposal in all_completed_proposals:
             #Getting Proposal ID
-            proposal_id = current_votes[0].split('-')[0].strip()
+            proposal_id = next_proposal[0].split('-')[0].strip()
 
             #Now Check if the proposal id is in the tracked proposals
             if proposal_id not in tracked_proposal_results:
