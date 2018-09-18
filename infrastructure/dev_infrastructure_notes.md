@@ -66,7 +66,6 @@ R/W: Autoscale 2/2 (5/5)
 ### dev_cvu_dynamodb_ProposalResultsAggregateFinal
 Name: dev_cvu_dynamodb_ProposalResultsAggregateFinal
 Key: proposalId
-Sort: VotingStartBlock
 R/W: Autoscale 2/2 (25/10)
 
 ### dev_cvu_dynamodb_ValidatorProposalVote
@@ -117,4 +116,4 @@ Memory: 128 MB
 Timeout: 60 secs
 
 Cloudwatch Event Trigger: Cloudwatch CRON
-Cloudwatch Input: Rate(5 minutes)
+Cloudwatch Input: Rate(1 minute)
