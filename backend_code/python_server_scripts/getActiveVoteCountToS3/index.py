@@ -37,9 +37,14 @@ def main():
             current_proposal_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-votes', '--proposal-id', proposal_id])
 
             #If voting period has lapsed, continue
-            if current_proposal_votes.split('.')[0] == 'Proposal not in voting period':
+            if current_proposal_votes.split('.')[0] == 'Proposal not in voting period' or current_proposal_votes.split('\n')[0] == 'null':
                 print "Proposal Time Lapsed."
-                continue
+                break
+
+            #Certain files are coming in as null, and we want to eliminate those here
+            if len(current_votes) < 20:
+                print "No Votes to Added."
+                break
 
             print "Uploading Proposal Id: " + str(proposal_id)
             #Else, upload the data directly to s3
