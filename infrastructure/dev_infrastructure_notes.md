@@ -63,10 +63,17 @@ Name: dev_cvu_dynamodb_fullValidatorList
 Key: validatorKey
 R/W: Autoscale 2/2 (5/5)
 
+### dev_cvu_dynamodb_ProposalResultsAggregateFinal
 Name: dev_cvu_dynamodb_ProposalResultsAggregateFinal
 Key: proposalId
 Sort: VotingStartBlock
 R/W: Autoscale 2/2 (25/10)
+
+### dev_cvu_dynamodb_ValidatorProposalVote
+Name: dev_cvu_dynamodb_ValidatorProposalVote
+Key: validatorAddress
+Sort: proposalId
+R/W: Autoscale 3/3 (25/25)
 
 ## API Gateway Structure
 
@@ -99,5 +106,12 @@ Cloudwatch Bucket: cosmos-validator-data
 Cloudwatch Key Prefix: data/gov/finished_results
 Cloudwatch Key Suffix: .json
 
-Cloudwatch Trigger Event: Cloudwatch Timer
-Cloudwatch Expression: Run Once Every 5 Minutes
+## dev_cvu_lambda_processVotesForAllValidators
+
+Name: dev_cvu_lambda_processVotesForAllValidators
+Runtime: Python 2.7
+Handler: index.handler
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalVotesForAllValidators.ppy)
+Role: dev_cvu_role_lambdaUtilityRole
+Memory: 128 MB
+Timeout: 60 secs
