@@ -8,13 +8,16 @@ s3_resource = boto3.resource('s3')
 s3_client = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 
+#S3 Variables
 bucket_name = "cosmos-validator-data"
 target_key_prefix = "data/gov/active_votes/"
 destination_key_prefix = "data/gov/finished_votes/"
 
+#DynamoDB Variables
+validator_table_name = 'dev_cvu_dynamodb_fullValidatorList'
+proposal_vote_table_name = 'dev_cvu_dynamodb_ValidatorProposalVote'
+
 def handler(event, context):
-    #Read the DynamodDB table for Current Validators
-    validator_table_name = 'dev_cvu_dynamodb_fullValidatorList'
     validator_table = dynamodb.Table(validator_table_name)
 
     response = validator_table.scan()
@@ -32,18 +35,54 @@ def handler(event, context):
         if next_vote_file['Key'] == target_key_prefix:
             continue
 
-        else:
+        print "Now on File: " + next_vote_file['Key']
         #Read the file
-            obj = s3_resource.Object(bucket_name, next_vote_file['Key'])
-            votes = obj.get()['Body'].read()
+        obj = s3_resource.Object(bucket_name, next_vote_file['Key'])
+        votes = json.loads(obj.get()['Body'].read())
 
-            #Iterate over the list of Validators
-            for next_validator in active_validators:
+        #Iterate over the list of Validators
+        validator_votes = []
+        for next_validator in active_validators:
+            #Iterate over the list of votes
+            for next_vote in votes:
+                validator_vote_record = {}
+
                 #If a Vote is found, insert that data
-                pass
-                #If no Vote is found, insert empty list
+                if next_validator['validatorKey'] == next_vote['voter']:
+                    ##Logic for Validator Data
+                    validator_vote_record['validatorKey'] = next_vote['voter']
+                    validator_vote_record['proposalId'] = int(next_vote['proposal_id'])
+                    validator_vote_record['castVoteFor'] = next_vote['option']
+                    print "Vote Cast for: " + next_validator['validatorKey']
+                    break
+
+            #If no Vote is found, insert empty list
+            if validator_vote_record == {}:
+                validator_vote_record['validatorKey'] = next_validator['validatorKey']
+                validator_vote_record['proposalId'] = int(next_vote_file['Key'].split('/')[-1].split('.')[0])
+                validator_vote_record['castVoteFor'] = 'Void'
+                print "No Vote For: " + validator_vote_record['validatorKey']
+
+            validator_votes.append(validator_vote_record)
+
+        #Batch Write Votes to the vote table
+        print "Now Uploading to Dynamodb"
+        proposal_vote_table = dynamodb.Table(proposal_vote_table_name)
+
+        with proposal_vote_table.batch_writer(overwrite_by_pkeys=['validatorKey']) as batch:
+            for next_vote in validator_votes:
+                next_vote['time_inserted'] = datetime.datetime.now().isoformat()
+                batch.put_item(Item = next_vote)
 
         #After all validators are accounted for, move
         #the file from the s3 bucket (insert and delete)
 
-handler(0,0)
+        print "S3 File Copied"
+        destination_key = destination_key_prefix + next_vote_file['Key'].split('/')[-1]
+
+        target_source = {'Bucket': bucket_name,'Key': next_vote_file['Key']}
+        s3_client.copy_object( CopySource=target_source, Bucket= bucket_name, Key=destination_key)
+
+        #Delete From S3
+        s3_resource.Object(bucket_name, next_vote_file['Key']).delete()
+        print "Object Deleted from S3"

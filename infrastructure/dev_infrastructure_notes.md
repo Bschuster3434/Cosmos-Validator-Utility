@@ -71,7 +71,7 @@ R/W: Autoscale 2/2 (25/10)
 
 ### dev_cvu_dynamodb_ValidatorProposalVote
 Name: dev_cvu_dynamodb_ValidatorProposalVote
-Key: validatorAddress
+Key: validatorKey
 Sort: proposalId
 R/W: Autoscale 3/3 (25/25)
 
@@ -115,3 +115,6 @@ Handler: index.handler
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 60 secs
+
+Cloudwatch Event Trigger: Cloudwatch CRON
+Cloudwatch Input: Rate(5 minutes)
