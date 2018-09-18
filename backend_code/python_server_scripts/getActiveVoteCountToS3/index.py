@@ -27,7 +27,6 @@ def main():
         #If None, sleep for time_between_no_props
         if current_votes[0] == "No matching proposals found":
             #Wait 30 Seconds
-            print "Nothing to load, Waiting..."
             time.sleep(time_between_no_props)
             continue
 
@@ -38,17 +37,12 @@ def main():
 
             #If voting period has lapsed, continue
             if current_proposal_votes.split('.')[0] == 'Proposal not in voting period' or current_proposal_votes.split('\n')[0] == 'null':
-                print "Proposal Time Lapsed."
                 continue
 
-            print "Uploading Proposal Id: " + str(proposal_id)
             #Else, upload the data directly to s3
             key_full_path = s3_key_path + '/' + proposal_id + '.json'
             obj = s3_resource.Object(s3_bucket, key_full_path)
             obj.put(Body=current_proposal_votes)
-
-            print datetime.datetime.now().isoformat()
-            print "Uploaded: " + key_full_path
 
         #Wait 2 seconds and go again
         time.sleep(2)

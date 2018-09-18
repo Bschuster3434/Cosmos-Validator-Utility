@@ -35,8 +35,6 @@ def main():
         passed_proposals = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'Rejected']).strip().split('\n')
         all_completed_proposals = rejected_proposals + passed_proposals
 
-        print "Retrieved All proposals"
-
         for next_proposal in all_completed_proposals:
             #Getting Proposal ID
             proposal_id = next_proposal.split('-')[0].strip()
@@ -46,12 +44,10 @@ def main():
                 #If not, add the proposal result to S3
                 proposal_result = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposal', '--proposal-id', proposal_id])
 
-                print "Uploading Proposal Id: " + str(proposal_id)
                 #Else, upload the data directly to s3
                 key_full_path = s3_key_path + '/' + proposal_id + '.json'
                 obj = s3_resource.Object(s3_bucket, key_full_path)
                 obj.put(Body=proposal_result)
-        print "Now Sleeping"
         time.sleep(time_between_check)
 
 main()

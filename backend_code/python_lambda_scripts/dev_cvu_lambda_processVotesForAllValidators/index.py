@@ -35,7 +35,6 @@ def handler(event, context):
         if next_vote_file['Key'] == target_key_prefix:
             continue
 
-        print "Now on File: " + next_vote_file['Key']
         #Read the file
         obj = s3_resource.Object(bucket_name, next_vote_file['Key'])
         votes = json.loads(obj.get()['Body'].read())
@@ -53,7 +52,6 @@ def handler(event, context):
                     validator_vote_record['validatorKey'] = next_vote['voter']
                     validator_vote_record['proposalId'] = int(next_vote['proposal_id'])
                     validator_vote_record['castVoteFor'] = next_vote['option']
-                    print "Vote Cast for: " + next_validator['validatorKey']
                     break
 
             #If no Vote is found, insert empty list
@@ -61,12 +59,10 @@ def handler(event, context):
                 validator_vote_record['validatorKey'] = next_validator['validatorKey']
                 validator_vote_record['proposalId'] = int(next_vote_file['Key'].split('/')[-1].split('.')[0])
                 validator_vote_record['castVoteFor'] = 'Void'
-                print "No Vote For: " + validator_vote_record['validatorKey']
 
             validator_votes.append(validator_vote_record)
 
         #Batch Write Votes to the vote table
-        print "Now Uploading to Dynamodb"
         proposal_vote_table = dynamodb.Table(proposal_vote_table_name)
 
         with proposal_vote_table.batch_writer(overwrite_by_pkeys=['validatorKey']) as batch:
@@ -77,7 +73,6 @@ def handler(event, context):
         #After all validators are accounted for, move
         #the file from the s3 bucket (insert and delete)
 
-        print "S3 File Copied"
         destination_key = destination_key_prefix + next_vote_file['Key'].split('/')[-1]
 
         target_source = {'Bucket': bucket_name,'Key': next_vote_file['Key']}
@@ -85,4 +80,3 @@ def handler(event, context):
 
         #Delete From S3
         s3_resource.Object(bucket_name, next_vote_file['Key']).delete()
-        print "Object Deleted from S3"

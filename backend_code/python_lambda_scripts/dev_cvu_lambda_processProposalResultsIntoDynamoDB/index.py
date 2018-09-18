@@ -80,9 +80,6 @@ def insertDynamoDBResult(results):
        Item=table_insert
     )
 
-    print "Successfully added Item to Table"
-
-
 def handler(event, context):
     #'bulk_insert' is the key I will append for a
     #one time insert event in DynamoDB
@@ -92,7 +89,6 @@ def handler(event, context):
 
         #Retrieve Obj
         for proposalId in records_to_process:
-            print "Now Reading Proposal: " + proposalId
             key_name = key_prefix + proposalId + '.json'
             s3_object = s3.Object(bucket_name, key_name)
             data = s3_object.get()['Body'].read()
@@ -104,7 +100,6 @@ def handler(event, context):
         #Otherwise, expect the normal Records List
         for objects in event["Records"]:
             key_name = objects['s3']['object']['key']
-            print "Now Retrieving Key: " + key_name
             s3_object = s3.Object(bucket_name, key_name)
             data = s3_object.get()['Body'].read()
 
