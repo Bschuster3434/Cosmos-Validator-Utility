@@ -41,11 +41,6 @@ def main():
                 print "Proposal Time Lapsed."
                 continue
 
-            #Certain files are coming in as null, and we want to eliminate those here
-            if len(current_votes) < 20:
-                print "No Votes to Added."
-                continue
-
             print "Uploading Proposal Id: " + str(proposal_id)
             #Else, upload the data directly to s3
             key_full_path = s3_key_path + '/' + proposal_id + '.json'
