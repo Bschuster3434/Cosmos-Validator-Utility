@@ -39,12 +39,12 @@ def main():
             #If voting period has lapsed, continue
             if current_proposal_votes.split('.')[0] == 'Proposal not in voting period' or current_proposal_votes.split('\n')[0] == 'null':
                 print "Proposal Time Lapsed."
-                break
+                continue
 
             #Certain files are coming in as null, and we want to eliminate those here
             if len(current_votes) < 20:
                 print "No Votes to Added."
-                break
+                continue
 
             print "Uploading Proposal Id: " + str(proposal_id)
             #Else, upload the data directly to s3
