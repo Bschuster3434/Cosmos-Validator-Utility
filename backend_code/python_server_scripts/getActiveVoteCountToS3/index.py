@@ -37,7 +37,7 @@ def main():
             current_proposal_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-votes', '--proposal-id', proposal_id])
 
             #If voting period has lapsed, continue
-            if current_proposal_votes.split('.') == 'Proposal not in voting period.':
+            if current_proposal_votes.split('.')[0] == 'Proposal not in voting period':
                 print "Proposal Time Lapsed."
                 continue
 
