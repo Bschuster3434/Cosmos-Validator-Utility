@@ -62,5 +62,7 @@ crontab -l | { cat; echo "*/5 * * * * bash /home/ubuntu/Cosmos-Validator-Utility
 #Setup Python Services Here
 sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/systemd_services/getActiveVoteCountToS3.service /etc/systemd/system/getActiveVoteCountToS3.service
 sudo systemctl start getActiveVoteCountToS3.service
+sudo systemctl enable getActiveVoteCountToS3.service
 sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/systemd_services/getFinalProposalResultsToS3.service /etc/systemd/system/getFinalProposalResultsToS3.service
 sudo systemctl start getFinalProposalResultsToS3.service
+sudo systemctl enable getFinalProposalResultsToS3.service
