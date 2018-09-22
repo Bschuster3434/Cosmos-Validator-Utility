@@ -33,7 +33,15 @@ def main():
         #Must Search Passed and Rejected to get the whole set
         rejected_proposals = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'Passed']).strip().split('\n')
         passed_proposals = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'Rejected']).strip().split('\n')
-        all_completed_proposals = rejected_proposals + passed_proposals
+
+        #Update, must also check VotingPeriod Votes for Applications
+        check_current_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'VotingPeriod'])
+        if current_votes.split('\n')[0] == "No matching proposals found":
+            current_votes = []
+        else:
+            current_votes = check_current_votes.strip().split('\n')
+
+        all_completed_proposals = rejected_proposals + passed_proposals + current_votes
 
         for next_proposal in all_completed_proposals:
             #Getting Proposal ID
