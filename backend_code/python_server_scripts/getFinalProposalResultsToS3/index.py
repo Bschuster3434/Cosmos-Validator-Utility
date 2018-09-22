@@ -36,7 +36,7 @@ def main():
 
         #Update, must also check VotingPeriod Votes for Applications
         check_current_votes = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposals', '--status', 'VotingPeriod'])
-        if current_votes.split('\n')[0] == "No matching proposals found":
+        if check_current_votes.split('\n')[0] == "No matching proposals found":
             current_votes = []
         else:
             current_votes = check_current_votes.strip().split('\n')
