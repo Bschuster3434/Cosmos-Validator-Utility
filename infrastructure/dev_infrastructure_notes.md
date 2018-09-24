@@ -74,6 +74,11 @@ Key: validatorKey
 Sort: proposalId
 R/W: Autoscale 3/3 (25/25)
 
+### dev_cvu_dynamodb_latestStatus
+Name: dev_cvu_dynamodb_latestStatus
+Key: id
+R/W: Autoscale 1/1 (25/25)
+
 ## API Gateway Structure
 
 Name: dev_cvu_api_applicationAPI
@@ -90,7 +95,7 @@ Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 20 secs
 
-## dev_cvu_lambda_processProposalResultsIntoDynamoDB
+### dev_cvu_lambda_processProposalResultsIntoDynamoDB
 
 Name: dev_cvu_lambda_processProposalResultsIntoDynamoDB
 Runtime: Python 2.7
@@ -105,7 +110,7 @@ Cloudwatch Bucket: cosmos-validator-data
 Cloudwatch Key Prefix: data/gov/finished_results
 Cloudwatch Key Suffix: .json
 
-## dev_cvu_lambda_processVotesForAllValidators
+### dev_cvu_lambda_processVotesForAllValidators
 
 Name: dev_cvu_lambda_processVotesForAllValidators
 Runtime: Python 2.7
@@ -117,3 +122,20 @@ Timeout: 60 secs
 
 Cloudwatch Event Trigger: Cloudwatch CRON
 Cloudwatch Input: Rate(1 minute)
+
+## Lambda Server Functions
+
+### getActiveVoteCountToS3
+
+Service Name: getActiveVoteCountToS3.service
+Purpose: Send Active Votes to S3 every two seconds for latest vote.
+
+### getFinalProposalResultsToS3
+
+Service Name: getFinalProposalResultsToS3.service
+Purpose: Get all of the proposal results to S3 every 30 seconds.
+
+### getCurrentBlockchainStatusToDynamoDB
+
+Service Name; getCurrentBlockchainStatusToDynamoDB.service
+Purpose: Get the network status every two seconds and upload to DynamoDB.

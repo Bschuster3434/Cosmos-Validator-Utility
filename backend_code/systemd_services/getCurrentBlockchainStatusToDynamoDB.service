@@ -1,0 +1,12 @@
+[Unit]
+Description=Get the current status of the blockchain and network to S3
+
+[Service]
+User=ubuntu
+Type=simple
+ExecStart=/bin/bash -c "/usr/bin/python /home/ubuntu/Cosmos-Validator-Utility/backend_code/python_server_scripts/getCurrentBlockchainStatusToDynamoDB/index.py"
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
