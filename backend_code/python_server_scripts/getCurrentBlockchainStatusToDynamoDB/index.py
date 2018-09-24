@@ -2,6 +2,7 @@ import boto3
 import pdb
 import json
 import datetime
+import time
 import subprocess
 
 time_between_check = 2 #Seconds
