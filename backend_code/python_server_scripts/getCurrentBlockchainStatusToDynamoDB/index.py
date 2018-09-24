@@ -7,7 +7,7 @@ import subprocess
 time_between_check = 2 #Seconds
 
 #AWS Variables
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
 #DynamoDB variables
 table_name = "dev_cvu_dynamodb_latestStatus"
