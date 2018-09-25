@@ -24,3 +24,31 @@ All metrics are provided by a AWS serverless service, collecting data directly f
 - Lambda
 
 ![alt text](https://github.com/Bschuster3434/Cosmos-Validator-Utility/blob/master/infrastructure/Documents/AWS%20Infrastructure%20Diagram.jpg "AWS Infrastructure (including Cosmos Node)")
+
+Python service running directly on the EC2 node operate in 2-30 second intervals to update each of the core data metrics, which include:
+
+- Proposals (Results and Realtime Updates)
+- Validator Votes
+- Current Network Validator Status
+- Vote Alert System
+
+When new results and changes to the validators are detected, process fire immediately to update S3 and DynamoDB, which then gets reflected in the data. This is then visible in the dashboard.
+
+An email alert system is also provided, allowing users to enter their email address. This email is stored in a mailchimp list and accessed through lambda when new email governance proposals are created. Upon creation, an email alert will be sent to each list member, notifying them of a new vote with details on the vote. Emails are not shared and can be unsubscribed from the email at anytime.
+
+## Future Improvements
+
+As an MVP, there are many changes that I would like to implement to make this service more robust. Here are some of the changes I would add/improve if the project were to move forward:
+
+- Add block height to the service and calculate time remaining for each 'VotingPeriod' proposal.
+- Add datetime for each block and calculate the datatime of each vote start and estimate end time based on average block time.
+- Make the VotingPeriod results responsive to changes in the database (currently require a refresh to collect updates on votes)
+- Better Search and Location feature for Validators (currently need to scroll through list with no search)
+- Learn CSS at some point
+- Add separate pages for governance votes and email services
+- Create sentry node architecture for nodes in order to protect against DOS attack (not running a full validator, but still need protection to keep node up to date)
+- Allow for more specific ordering and searching in the governance result votes
+
+## Developer Note
+
+This was my first front end development project. I specifically picked up VueJS after seeing the Cosmos Network Explorer (https://github.com/cosmos/explorer) used VueJS. Because of this, there are many common features and styles not implemented due to lack of knowledge.
