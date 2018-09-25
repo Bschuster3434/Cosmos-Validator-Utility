@@ -89,6 +89,7 @@ def handler(event, context):
 
         #Retrieve Obj
         for proposalId in records_to_process:
+            print "Now Reading Proposal: " + proposalId
             key_name = key_prefix + proposalId + '.json'
             s3_object = s3.Object(bucket_name, key_name)
             data = s3_object.get()['Body'].read()
@@ -96,12 +97,30 @@ def handler(event, context):
             proposal_results = json.loads(data)
             insertDynamoDBResult(proposal_results)
 
+            #Final Cleanup: If the Proposal is in 'VotingPeriod', it needs to
+            #Be deleted from S3
+
+            propsal_status = json.loads(data)['value']['proposal_status']
+
+            if proposal_status == 'VotingPeriod':
+                s3_object.delete()
+
     else:
         #Otherwise, expect the normal Records List
         for objects in event["Records"]:
             key_name = objects['s3']['object']['key']
+            print "Now Retrieving Key: " + key_name
             s3_object = s3.Object(bucket_name, key_name)
             data = s3_object.get()['Body'].read()
 
             proposal_results = json.loads(data)
             insertDynamoDBResult(proposal_results)
+
+            #Final Cleanup: If the Proposal is in 'VotingPeriod', it needs to
+            #Be deleted from S3
+
+            proposal_status = json.loads(data)['value']['proposal_status']
+
+            if proposal_status == 'VotingPeriod':
+                s3_object.delete()
+                print "Deleted VotingPeriod Object: " + str(json.loads(data)['value']['proposal_id'] )
