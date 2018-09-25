@@ -94,3 +94,24 @@ The backend python script works to collect results that have yet to be processed
 Once the S3 results are inserted, a python script tied to an S3 process triggers and processes the results into 'ProposalResultsAggregateFinal'. If the file is in 'VotingPeriod' at the time of processing, the file is then deleted from S3 to allow for it to be re-triggered and processed as new results come in.
 
 Once inside dynamoDB, API gateway is able to access these results through the endpoint /gov/results/{proposalid} to display the voting record of each validator.
+
+## New Vote Services
+
+### Related Services
+Python Server Scripts
+-Script: backend_code/python_server_scripts/getActiveProposalsToS3/index.py
+- Service: backend_code/systemd_services/getActiveProposalsToS3.service
+S3 File Location
+- Target Key = '/data/gov/active_proposals/{proposal_id}.json'
+Lambda Python Script
+- File: backend_code/python_lambda_scripts/dev_cvu_lambda_sendActiveEmailToMailchimpList/index.py
+
+### Details
+
+The backend python script works to find the first time a 'VotingPeriod' proposal has been found. It runs as a python script on the node, running command line functions to grab the proposals in the 'VotingPeriod' stage. The script checks every 30 seconds for results and then inserts them into S3 once they are found.
+
+Once the S3 results are inserted, a python script tied to an S3 process trigger will activate, sending an email to the "New Proposal" mailing list on the website. S3 only triggers on the new inserts, so the email will only be sent once, right at the vote has been identified. This service is integrated with SendGrid to send out these messages.
+
+## Web Application
+
+The web application was built utilizing VueJS. It is served as a static website via S3 and runs fully within the user's browser.
