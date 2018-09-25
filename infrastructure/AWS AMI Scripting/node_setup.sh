@@ -69,3 +69,6 @@ sudo systemctl enable getFinalProposalResultsToS3.service
 sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/systemd_services/getCurrentBlockchainStatusToDynamoDB.service /etc/systemd/system/getCurrentBlockchainStatusToDynamoDB.service
 sudo systemctl start getCurrentBlockchainStatusToDynamoDB.service
 sudo systemctl enable getCurrentBlockchainStatusToDynamoDB.service
+sudo cp /home/ubuntu/Cosmos-Validator-Utility/backend_code/systemd_services/getActiveProposalsToS3.service /etc/systemd/system/getActiveProposalsToS3.service
+sudo systemctl start getActiveProposalsToS3.service
+sudo systemctl enable getActiveProposalsToS3.service

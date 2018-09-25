@@ -48,6 +48,8 @@ Policies:
     /gov
       /active_votes
         Active Voting Activity on the Network
+      /active_proposals
+        Proposal Details for Email Service
       /finished_votes
         Archive of Finished Voting Activity on the Network
       /finished_results
@@ -100,7 +102,7 @@ Timeout: 20 secs
 Name: dev_cvu_lambda_processProposalResultsIntoDynamoDB
 Runtime: Python 2.7
 Handler: index.handler
-(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalResultsIntoDynamoDB.ppy)
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalResultsIntoDynamoDB.py)
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 60 secs
@@ -115,7 +117,7 @@ Cloudwatch Key Suffix: .json
 Name: dev_cvu_lambda_processVotesForAllValidators
 Runtime: Python 2.7
 Handler: index.handler
-(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalVotesForAllValidators.ppy)
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_processProposalVotesForAllValidators.py)
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 60 secs
@@ -123,7 +125,20 @@ Timeout: 60 secs
 Cloudwatch Event Trigger: Cloudwatch CRON
 Cloudwatch Input: Rate(1 minute)
 
-## Lambda Server Functions
+### dev_cvu_lambda_sendActiveEmailToMailchimpList
+
+Name: dev_cvu_lambda_sendActiveEmailToMailchimpList
+Runtime: Python 2.7
+Handler: index.handler
+(file: backend_code/python_lamdbda_script/dev_cvu_lambda_sendActiveEmailToMailchimpList.py)
+Role: dev_cvu_role_lambdaUtilityRole
+Memory: 512 MB
+Timeout: 60 secs
+
+Cloudwatch Event Trigger: S3
+Cloudwatch Event: New Puts to bucket cosmos-validator-data/data/gov/active_proposals
+
+## Python Server Functions
 
 ### getActiveVoteCountToS3
 
@@ -137,5 +152,17 @@ Purpose: Get all of the proposal results to S3 every 30 seconds.
 
 ### getCurrentBlockchainStatusToDynamoDB
 
-Service Name; getCurrentBlockchainStatusToDynamoDB.service
+Service Name: getCurrentBlockchainStatusToDynamoDB.service
 Purpose: Get the network status every two seconds and upload to DynamoDB.
+
+### getActiveProposalsToS3
+
+Service Name: getActiveProposalsToS3.service
+Purpose: Get the latest active proposals to S3
+
+## Email Service
+
+### MailChimp Details
+
+Email: CleverGoose
+List: Active Gov Proposals Subscribers
