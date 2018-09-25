@@ -36,6 +36,8 @@ When new results and changes to the validators are detected, process fire immedi
 
 An email alert system is also provided, allowing users to enter their email address. This email is stored in a mailchimp list and accessed through lambda when new email governance proposals are created. Upon creation, an email alert will be sent to each list member, notifying them of a new vote with details on the vote. Emails are not shared and can be unsubscribed from the email at anytime.
 
+For more specific details on these service, please check out the services details document: https://github.com/Bschuster3434/Cosmos-Validator-Utility/blob/master/Services%20Details.md
+
 ## Future Improvements
 
 As an MVP, there are many changes that I would like to implement to make this service more robust. Here are some of the changes I would add/improve if the project were to move forward:
