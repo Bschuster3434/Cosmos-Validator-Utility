@@ -2,3 +2,4 @@ keys
 backend_code/python_server_scripts/node_server_scripts/
 backend_code/python_lambda_scripts/dev_cvu_lambda_sendActiveEmailToMailchimpList/dependencies
 backend_code/python_lambda_scripts/dev_cvu_lambda_sendActiveEmailToMailchimpList/keys.*
+node_modules/
