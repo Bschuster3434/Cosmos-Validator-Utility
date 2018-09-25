@@ -1,18 +1,26 @@
-# Cosmos-Validator-Utility
-A Visual and Alerting Tool to Assist Cosmos Validator in Monitoring Network Statistics
+# Cosmos-Validator-Utility (Testnet 8001)
+A Visual and Alerting Tool to Assist Cosmos Validator in Monitoring Governace
+Activity through a Simple Dashboard and Email Alert Tool. Available as a
+serverless website.
+
+View the Website Here: http://vuejscvuwebsitetest.s3-website-us-east-1.amazonaws.com/
 
 ## Tool Purpose
 
-This tools is designed to help validators to monitor network statistics on
-their validator instance, and be able to receive alerts through the use of
-API access and email alerts.
+The purpose of this tool is to assist Cosmos Testnet users to monitor the
+validators on the network. This tools accomplishes this goal in two ways:
 
-The Application provides the following data:
-- A numeric representation of how many blocks the validator has signed over the last 24 hours
-- A numeric representation of how many votes the validator has participated in
-- A visual representation of the hourly block completion percentage
-- A chart of the current outstanding votes and completed votes
-- A chart of all the vote results, including the validators voting record
+1) Provide a tool to allow users to select from a list of active validators and view their record on the testnet.
+2) Provide an email address to get updates when new governance votes are available.
 
-The Application also allows users to receive daily digests of validator
-network statistics, as well as API access for recent missed block and missed votes.
+
+## Service Details
+All metrics are provided by a AWS serverless service, collecting data directly from a monitored cosmos node. The infrastructure is designed in such a way as to allow for multi nodes to feed data to the infrastructure. The core services used to provide this infrastructure includes:
+
+- S3
+- DynamoDB
+- API Gateway
+- S3 Static Hosting
+- Lambda
+
+![alt text](https://github.com/Bschuster3434/Cosmos-Validator-Utility/blob/master/infrastructure/Documents/AWS%20Infrastructure%20Diagram.jpg "AWS Infrastructure (including Cosmos Node)")
