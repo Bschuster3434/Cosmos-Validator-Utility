@@ -44,6 +44,7 @@ Policies:
 ## S3 Bucket
 
 - cosmos-validator-data
+
   /data
     /gov
       /active_votes
@@ -96,6 +97,9 @@ Handler: index.handler
 Role: dev_cvu_role_lambdaUtilityRole
 Memory: 128 MB
 Timeout: 20 secs
+
+Cloudwatch Event Trigger: Cloudwatch CRON
+Cloudwatch Input: Rate(5 minute)
 
 ### dev_cvu_lambda_processProposalResultsIntoDynamoDB
 
