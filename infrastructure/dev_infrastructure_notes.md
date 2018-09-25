@@ -45,18 +45,18 @@ Policies:
 
 - cosmos-validator-data
 
-  /data
-    /gov
-      /active_votes
-        Active Voting Activity on the Network
-      /active_proposals
-        Proposal Details for Email Service
-      /finished_votes
-        Archive of Finished Voting Activity on the Network
-      /finished_results
-        Aggregate Results of Voting Activity on the Network
-    /validators
-      List of Validators on the Network, updated every five minutes
+/data
+/data/gov
+/data/gov/active_votes
+Active Voting Activity on the Network
+/data/gov/active_proposals
+Proposal Details for Email Service
+/data/gov/finished_votes
+Archive of Finished Voting Activity on the Network
+data/gov/finished_results
+Aggregate Results of Voting Activity on the Network
+/data/validators
+List of Validators on the Network, updated every five minutes
 
 ## DynamoDB Tables
 
@@ -84,7 +84,7 @@ R/W: Autoscale 1/1 (25/25)
 
 ## API Gateway Structure
 
-Name: dev_cvu_api_applicationAPI
+Full Details Here: https://github.com/Bschuster3434/Cosmos-Validator-Utility/blob/master/infrastructure/API%20Gateway/dev_cvu_api_applicationAPI-dev-swagger.yaml
 
 ## Lambda Shells
 
@@ -163,10 +163,3 @@ Purpose: Get the network status every two seconds and upload to DynamoDB.
 
 Service Name: getActiveProposalsToS3.service
 Purpose: Get the latest active proposals to S3
-
-## Email Service
-
-### MailChimp Details
-
-Email: CleverGoose
-List: Active Gov Proposals Subscribers
