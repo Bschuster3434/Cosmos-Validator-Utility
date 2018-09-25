@@ -27,7 +27,7 @@ def main():
 
         #For all outstanding proposals, query them and send to s3
         for next_proposal in current_proposals:
-            proposal_id = current_votes[0].split('-')[0].strip()
+            proposal_id = current_proposals[0].split('-')[0].strip()
             current_proposal_results = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposal', '--proposal-id', proposal_id])
 
             key_full_path = s3_key_path + '/' + proposal_id + '.json'
