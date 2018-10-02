@@ -31,7 +31,9 @@
                   <td v-else>
                     <p :style="{'color' : 'orange'}">{{result.proposalStatus.S}}</p>
                   </td>
-                <td v-if="!('castVoteFor'in result)">No Result Found</td>
+                <td v-if="result.castVoteFor.S == 'No Result Found'">No Result Found</td>
+                  <td v-else-if="result.castVoteFor.S == 'Validator Offline'">
+                    <p><strong>{{result.castVoteFor.S}}</strong></p></td>
                   <td v-else-if="result.castVoteFor.S == 'Yes'">
                     <p :style="{'color' : 'green'}">{{result.castVoteFor.S}}</p></td>
                   <td v-else-if="result.castVoteFor.S == 'No' |  result.castVoteFor.S == 'NoWithVeto'">
@@ -127,7 +129,16 @@ export default {
 
       let activeItems = this.govResults.Items;
 
+
       for (var i=0; i < activeItems.length; i++) {
+          if (parseInt(activeItems[i].proposalId.N) > 540) {
+            activeItems[i]["castVoteFor"] = {};
+            activeItems[i]["castVoteFor"].S = "Validator Offline"
+          }
+          else {
+            activeItems[i]["castVoteFor"] = {};
+            activeItems[i]["castVoteFor"].S = "No Result Found";
+          }
           let nextItem = activeItems[i];
           for (var e=0; e < this.validatorVotes.Items.length; e++) {
             let nextValidatorVote = this.validatorVotes.Items[e];
