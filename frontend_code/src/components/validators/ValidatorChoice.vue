@@ -5,7 +5,7 @@
     <div class="panel-body">
       <select v-model="selectedValidator">
         <option disabled value="">Please select a validator</option>
-        <template v-for="(nextValidator, index) in validators.Items" v-if="nextValidator.revoked.BOOL == false" >
+        <template v-for="(nextValidator, index) in validators" v-if="nextValidator.revoked.BOOL == false" >
           <option v-bind:value="nextValidator">{{nextValidator.moniker.S}} | {{nextValidator.validatorKey.S}}</option>
         </template>
       </select>
@@ -56,7 +56,8 @@ export default {
   mounted: function() {
     axios
       .get('https://4itjqoal2g.execute-api.us-east-1.amazonaws.com/dev/validators/getallvalidators')
-      .then(response => (this.validators = response.data))
+      //.then(response => (this.validators = response.data))
+      .then(response => this.validators = _.orderBy(response.data.Items, ['moniker.S'], ['asc']))
       .catch(error => console.log(error))
   },
   props : ['validatorVotes'],
@@ -92,6 +93,9 @@ export default {
 
       return resp_obj
 
+    },
+    orderedValidators: function() {
+      return _.orderBy(this.validators.Items, ['moniker.S'], ['asc'])
     },
   }
 }
