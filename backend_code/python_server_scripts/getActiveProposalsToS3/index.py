@@ -22,7 +22,7 @@ def main():
         #If None, sleep for time_between_no_props
         if current_proposals[0] == "No matching proposals found":
             #Wait 30 Seconds
-            print "No proposals found."
+            print "No proposals found"
             time.sleep(time_between_checks)
             continue
 
