@@ -22,6 +22,7 @@ def main():
         #If None, sleep for time_between_no_props
         if current_proposals[0] == "No matching proposals found":
             #Wait 30 Seconds
+            print "No proposals found."
             time.sleep(time_between_checks)
             continue
 
@@ -29,6 +30,8 @@ def main():
         for next_proposal in current_proposals:
             proposal_id = current_proposals[0].split('-')[0].strip()
             current_proposal_results = subprocess.check_output(['/home/ubuntu/goApps/bin/gaiacli', 'gov', 'query-proposal', '--proposal-id', proposal_id])
+            print "Proposal Found!"
+            print current_proposal_results
 
             key_full_path = s3_key_path + '/' + proposal_id + '.json'
             obj = s3_resource.Object(s3_bucket, key_full_path)
