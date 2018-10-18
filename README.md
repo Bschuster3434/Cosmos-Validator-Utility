@@ -5,6 +5,9 @@ serverless website.
 
 View the Website Here: http://vuejscvuwebsitetest.s3-website-us-east-1.amazonaws.com/
 
+(Note: Service was halted on 10/18/2018, though the website will remain up
+  and active.)
+
 ## Tool Purpose
 
 The purpose of this tool is to assist Cosmos Testnet users to monitor the
