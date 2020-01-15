@@ -3,8 +3,6 @@ A Visual and Alerting Tool to Assist Cosmos Validator in Monitoring Governace
 Activity through a Simple Dashboard and Email Alert Tool. Available as a
 serverless website.
 
-View the Website Here: http://vuejscvuwebsitetest.s3-website-us-east-1.amazonaws.com/
-
 (Note: Service was halted on 10/18/2018, though the website will remain up
   and active.)
 
